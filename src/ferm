@@ -2244,10 +2244,10 @@ sub enter($$) {
                 $inner{$_} = $rule{$_} foreach qw(domain domain_family domain_both table keywords);
                 $inner{chain} = $inner{auto}{CHAIN} = $subchain;
 
-                if (exists $rule{protocol}) {
-                    $inner{protocol} = $rule{protocol};
-                    append_option(%inner, 'protocol', $inner{protocol});
-                }
+                #if (exists $rule{protocol}) {
+                #    $inner{protocol} = $rule{protocol};
+                #    append_option(%inner, 'protocol', $inner{protocol});
+                #}
 
                 # create a new stack frame
                 my $old_stack_depth = @stack;
