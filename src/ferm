@@ -1961,6 +1961,19 @@ sub enter($$) {
                 next;
             }
 
+            if ($keyword eq '@require' or $keyword eq 'require') {
+                my @files = to_array getvalues;
+                $keyword = next_token;
+                error('Missing ";" - "require FILENAME" must be the last command in a rule')
+                  unless defined $keyword and $keyword eq ';';
+
+                foreach my $filename (@files) {
+                    require $filename;
+                }
+
+                next;
+            }
+
             # definition of a variable or function
             if ($keyword eq '@def' or $keyword eq 'def') {
                 error('"def" must be the first token in a command')
