@@ -28,6 +28,7 @@
 # $Id$
 
 use File::Spec;
+use File::Basename qw(dirname);
 
 BEGIN {
     eval { require strict; import strict; };
@@ -1967,7 +1968,12 @@ sub enter($$) {
                 error('Missing ";" - "require FILENAME" must be the last command in a rule')
                   unless defined $keyword and $keyword eq ';';
 
+                my $dir = dirname($script->{filename});
+
                 foreach my $filename (@files) {
+                    $filename = File::Spec->catfile($dir, $filename)
+                      unless ($filename =~ m,^/,);
+
                     require $filename;
                 }
 
